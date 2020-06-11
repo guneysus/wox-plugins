@@ -1,0 +1,6 @@
+wox plugins
+======
+
+- prayer times
+
+

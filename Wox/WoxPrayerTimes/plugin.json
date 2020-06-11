@@ -1,0 +1,12 @@
+﻿{
+  "ID": "7B75600555BE4CAA9A6CEAF8CEA6932F",
+  "ActionKeyword": "namaz",
+  "Name": "WPM",
+  "Description": "Wox Package Management",
+  "Author": "guneysus",
+  "Version": "0.0.2",
+  "Language": "csharp",
+  "ExecuteFileName": "WoxPrayerTimes.dll",
+  "IcoPath": "Images\\app.png",
+  "Disabled": false
+}
