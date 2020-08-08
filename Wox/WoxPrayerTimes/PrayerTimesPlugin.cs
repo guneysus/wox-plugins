@@ -9,10 +9,11 @@ using N = Newtonsoft.Json.NullValueHandling;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Net.Http;
+using System.Diagnostics;
 
 namespace WoxPrayerTimes
 {
-    public class PrayerTimesPlugin : IPlugin
+    public class PrayerTimesPlugin : IPlugin, IContextMenu
     {
         private PluginInitContext _context;
 
@@ -40,7 +41,7 @@ namespace WoxPrayerTimes
             using (var http = new HttpClient())
             {
                 var content = http
-                    .GetStringAsync($"http://api.namazvakti.guneysu.xyz/{city}/daily")
+                    .GetStringAsync(GetDailyUrl(city))
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();
@@ -48,6 +49,11 @@ namespace WoxPrayerTimes
                 var prayerTimes = JsonConvert.DeserializeObject<PrayerTimesDaily>(content);
                 return prayerTimes;
             }
+        }
+
+        private static string GetDailyUrl(string city)
+        {
+            return $"http://api.namazvakti.guneysu.xyz/{city}/daily";
         }
 
         public List<Result> Query(Query query)
@@ -93,7 +99,8 @@ namespace WoxPrayerTimes
                     {
                         _context.API.ChangeQuery($"prayer {city}");
                         return false;
-                    }
+                    },
+                    ContextData = city
                 };
             }).ToList();
         }
@@ -120,5 +127,24 @@ namespace WoxPrayerTimes
             SubTitle = subtitle,
             Action = e => true
         };
+
+        public List<Result> LoadContextMenus(Result selectedResult)
+        {
+            return new List<Result>()
+            {
+            new Result()
+            {
+                Title = "Open in Browser",
+                Action = ctx =>
+                {
+                    //_context.API.ChangeQuery(GetDailyUrl(selectedResult.ContextData.ToString()), true);
+                    //_context.API.ShowMsg("Hello");
+                    Process.Start(GetDailyUrl(selectedResult.ContextData.ToString()));
+                    return false;
+                }
+            }
+            };
+
+        }
     }
 }

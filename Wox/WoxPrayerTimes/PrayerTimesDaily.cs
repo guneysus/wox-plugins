@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Wox.Plugin;
 using J = Newtonsoft.Json.JsonPropertyAttribute;
 using R = Newtonsoft.Json.Required;
 using N = Newtonsoft.Json.NullValueHandling;
