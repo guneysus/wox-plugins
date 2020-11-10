@@ -110,7 +110,8 @@ namespace WoxPrayerTimes
             var prayerTimes = GetPrayerTimes(query.FirstSearch);
             var results = new List<Result>()
             {
-                PrayerTimeResult("Hicri", prayerTimes.Hijri),
+                PrayerTimeResult("Hicrî", prayerTimes.Hijri),
+                PrayerTimeResult("Milâdi", prayerTimes.Gregorian),
                 PrayerTimeResult("İmsak", prayerTimes.Fajr),
                 PrayerTimeResult("Güneş", prayerTimes.Sunrise),
                 PrayerTimeResult("Öğle", prayerTimes.Dhuhr),
